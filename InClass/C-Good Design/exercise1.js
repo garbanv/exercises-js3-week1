@@ -40,33 +40,41 @@
    */
 
 
-function myFunction(salary, taxCode, incomeTax1, incomeTax2, ownsCar) {
-  var totalIncomeTax = incomeTax1 + incomeTax2;
-  var studentLoan = (salary - 17775) * 0.09;
-  var originalSalary = salary;
-  var nationalInsurance = null;
-
-  if (taxCode === "1150L") {
-    nationalInsurance = salary * 0.1;
-  } else if (taxCode === "ST") {
-    nationalInsurance = salary * 0.05;
-  } else {
-    nationalInsurance = salary * 0.08;
-  }
-
-  var deductions = [nationalInsurance, totalIncomeTax, studentLoan];
-
-  salary = salary - deductions[0];
-  salary = salary - deductions[1];
-  salary = salary - deductions[2];
-
-  return (
-    "Your gross income is £" +
-    originalSalary.toString() +
-    " and your net income is £" +
-    salary.toString() +
-    "."
-  );
-}
-
-console.log(myFunction(28000, "1150L", 1000, 580, false));
+  function calculateStudentLoan(salary) {
+   const amountAlreadyPaidOff = 17775;
+   const interestRate = 0.09;
+   return (salary - amountAlreadyPaidOff) * interestRate;
+ }
+ function calculateNationalInsurance(salary, taxCode) {
+   if (taxCode === "1150L") {
+     return salary * 0.1;
+   } else if (taxCode === "ST") {
+     return salary * 0.05;
+   } else {
+     return salary * 0.08;
+   }
+ }
+ function deductFrom(deductions, salary) {
+   deductions.forEach(deduction => {
+     salary = salary - deduction;
+   });
+   return salary;
+ }
+ function calculateIncome(salary, taxCode, totalIncomeTax, ownsCar) {
+   var studentLoan = calculateStudentLoan(salary);
+   var nationalInsurance = calculateNationalInsurance(salary, taxCode);
+   var deductions = [nationalInsurance, totalIncomeTax, studentLoan];
+   const netIncome = deductFrom(deductions, salary);
+   return (
+     "Your gross income is Â£" +
+     salary +
+     " and your net income is Â£" +
+     netIncome +
+     "."
+   );
+ }
+ function calculateIncomeTax(incomeTax1, incomeTax2) {
+   return incomeTax1 + incomeTax2;
+ }
+ const incomeTax = calculateIncomeTax(1000, 580);
+ console.log(calculateIncome(28000, "1150L", incomeTax, false));

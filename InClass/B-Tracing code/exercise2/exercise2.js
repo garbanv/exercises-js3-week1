@@ -12,9 +12,12 @@ function removeVowels(word) {
       character === "u"
     ) {
       result.push(character);
+      console.log(result)
     } else {
       result.push("_");
+      console.log(result)
     }
+    
   });
 
   return result.join("");

@@ -1,11 +1,11 @@
 function greetPeople(people) {
   var greeting = "He";
   greeting = greeting + "llo";
-  greeting = greeting + " ";
+  greeting = greeting + "";
 
   people.forEach(function(person) {
-    greeting = greeting + person;
-	console.log(greeting);
+    greeting = greeting + " " + person;
+	  console.log(greeting);
   });
 
   return greeting;
